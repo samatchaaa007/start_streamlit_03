@@ -2,7 +2,7 @@ def send_log_to_google_form(username, fullname, browser, page, event, ip):
     import requests
     from datetime import datetime
 
-    url = "https://docs.google.com/forms/d/e/xxxxxxxxxx/formResponse"
+    url = "https://docs.google.com/forms/d/e/1FAIpQLSfp2aRm1XAGkRL0K5y87680BYcko8aGxJyhpNLsrdaxLbl6Sg/viewform?usp=header"
     form_data = {
         "entry.1234567890": username,
         "entry.2345678901": fullname,
