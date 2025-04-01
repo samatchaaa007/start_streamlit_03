@@ -1,5 +1,5 @@
 import React from "react";
-import { StreamlitComponentBase, withStreamlitConnection } from "streamlit-component-lib";
+//import { StreamlitComponentBase, withStreamlitConnection } from "streamlit-component-lib";
 
 class MyComponent extends StreamlitComponentBase {
   render() {
