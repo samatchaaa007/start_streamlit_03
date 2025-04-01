@@ -141,6 +141,8 @@ def login():
                     st.session_state.profile_pic = user.get("profile_pic", f"https://i.pravatar.cc/150?u={username}")
 
                     log_event(username, user["fullname"], browser=user_agent, page="Login", event="login", ip=ip)
+                    send_log_to_google_form(username, user["fullname"], browser=user_agent, page="Login", event="login", ip=ip)
+
 
                     st.success(f"🎉 ยินดีต้อนรับคุณ {user['fullname']}")
                     st.rerun()
@@ -176,6 +178,8 @@ def main_app():
     user_agent = st_javascript(code="navigator.userAgent") or "Unknown"
     ip = st_javascript(code="await fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => data.ip)") or "Unknown"
     log_event(username, fullname, browser=user_agent, page=page, event="visit_page", ip=ip)
+    send_log_to_google_form(username, fullname, browser=user_agent, page=page, event="visit_page", ip=ip)
+
 
     st.markdown(f"<h2 class='text-success'>📄 {page}</h2>", unsafe_allow_html=True)
     if page in page_mapping:
