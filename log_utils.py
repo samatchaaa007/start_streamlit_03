@@ -1,21 +1,20 @@
-import pandas as pd
+import requests
 from datetime import datetime
-import os
 
-def log_event(username, fullname, browser="Unknown", page="Unknown", event="visit_page", ip="Unknown"):
-    log_path = "user_login_log.csv"
-    log_entry = {
-        "timestamp": datetime.now().isoformat(),
-        "username": username,
-        "fullname": fullname,
-        "browser": browser,
-        "page": page,
-        "event": event,
-        "ip": ip  # ✅ เพิ่ม IP เข้าไป
+def send_log_to_google_form(username, fullname, browser="Unknown", page="Unknown", event="visit_page", ip="Unknown", timestamp=None):
+    form_url = "https://docs.google.com/forms/d/e/1FAIpQLSfp2aRm1XAGkRL0K5y87680BYcko8aGJyhNLsrdaxLbl6Sg/formResponse"
+
+    if timestamp is None:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    data = {
+        "entry.94384076": username,
+        "entry.1474490753": fullname,
+        "entry.264051270": browser,
+        "entry.36918558": page,
+        "entry.2013583068": event,
+        "entry.543729100": ip,
+        "entry.526084478": timestamp
     }
 
-    df = pd.DataFrame([log_entry])
-    if os.path.exists(log_path):
-        df.to_csv(log_path, mode='a', header=False, index=False)
-    else:
-        df.to_csv(log_path, index=False)
+    requests.post(form_url, data=data)
