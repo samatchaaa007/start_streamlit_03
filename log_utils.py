@@ -16,3 +16,4 @@ def send_log_to_google_form(username, fullname, browser, page, event, ip):
 
     response = requests.post(url, data=form_data)
     return response.status_code == 200
+__all__ = ["log_event", "send_log_to_google_form"]
