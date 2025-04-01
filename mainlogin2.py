@@ -5,7 +5,7 @@ st.set_page_config(layout="wide", page_title="Dashboard Audit Team", page_icon="
 from my_pages import page1, page2, page3, page4, page5, page6
 from user_data import users, user_permissions
 from datetime import datetime
-from log_utils import log_event, send_log_to_google_form
+from log_utils
 from streamlit_javascript import st_javascript
 
 # -----------------------------
