@@ -1,4 +1,6 @@
 import streamlit as st
+st.set_page_config(layout="wide", page_title="Dashboard Audit Team", page_icon="📊")
+
 from my_pages import page1, page2, page3, page4, page5, page6
 from user_data import users, user_permissions
 from datetime import datetime
@@ -33,6 +35,7 @@ def set_ais_theme():
     }
     h1, h2 {
         color: #78BE20;
+        line-height: 4;
     }
     .btn-success {
         background-color: #78BE20 !important;
@@ -64,39 +67,59 @@ def set_ais_theme():
         box-shadow: 0 0 0 0.2rem rgba(120, 190, 32, 0.25) !important;
         outline: none !important;
     }
-    /*.block-container {
-        padding-top: 1rem !important;
-    }
-    header[data-testid="stHeader"] {
-        display: none;
-    }
 
-    img.sidebar-profile {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 10px;
-        margin-bottom: 0.5rem;
-    }*/
+    /* ✅ ลดช่องว่างด้านบนของเนื้อหา */
+    .block-container {
+        padding-top: 0.5rem !important;
+    }
     </style>
     """, unsafe_allow_html=True)
+
+st.markdown("""
+    <style>
+        header[data-testid="stHeader"] {
+            background-color: #00573D; /* เขียวเข้ม */
+            color: white;
+        }
+
+        /* ปรับ text/tab title ให้มองเห็นได้ */
+        header[data-testid="stHeader"] .st-emotion-cache-18ni7ap {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        /* ลดช่องว่าง header ถ้ามีมากเกิน */
+        .block-container {
+            padding-top: 1rem !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
 
 # -----------------------------
 # ฟังก์ชัน Login
 # -----------------------------
 def login():
-    st.set_page_config(layout="wide", page_title="Dashboard Audit Team", page_icon="🔐")
     set_ais_theme()
 
     st.markdown("""
-        <h1 style='text-align: center; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); 
-        -webkit-background-clip: text; color: transparent; font-weight: bold;'>
-            🔐 Audit Team Dashboard 
-        </h1>
+        <div style='
+            text-align: center; 
+            font-size: 40px; 
+            font-weight: bold; 
+            padding-top: 1rem;
+            margin-bottom: -6rem;
+            line-height: 4;
+            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); 
+            -webkit-background-clip: text;
+            color: transparent;
+        '>
+            🔐 Audit Team Dashboard
+        </div>
     """, unsafe_allow_html=True)
 
-    user_agent = st_javascript("navigator.userAgent") or "Unknown"
-    ip = st_javascript("await fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => data.ip)") or "Unknown"
+    user_agent = st_javascript(code="navigator.userAgent") or "Unknown"
+    ip = st_javascript(code="await fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => data.ip)") or "Unknown"
 
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -149,8 +172,8 @@ def main_app():
             st.session_state.pop(key, None)
         st.rerun()
 
-    user_agent = st_javascript("navigator.userAgent") or "Unknown"
-    ip = st_javascript("await fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => data.ip)") or "Unknown"
+    user_agent = st_javascript(code="navigator.userAgent") or "Unknown"
+    ip = st_javascript(code="await fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => data.ip)") or "Unknown"
     log_event(username, fullname, browser=user_agent, page=page, event="visit_page", ip=ip)
 
     st.markdown(f"<h2 class='text-success'>📄 {page}</h2>", unsafe_allow_html=True)
